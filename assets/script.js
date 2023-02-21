@@ -81,6 +81,16 @@ const forecastDisplay = document.querySelectorAll('.forecast-container')
 
 const btnSearch = document.querySelector('#search-btn');
 
+const cityWeather = [];
+
+
+
+for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key[i];
+    const value = JSON.parse(localStorage.getItem('cityHistory', key));
+    cityWeather.push(value);
+}
+
 const userInput = document.querySelector('#userInput');
 btnSearch.addEventListener("click", function() {
     for(let i = 0; i < forecastDisplay.length; i++) {
@@ -89,6 +99,26 @@ btnSearch.addEventListener("click", function() {
     console.log('meow')
     console.log(userInput.value);
     weatherForecast(userInput.value);
+    localStorage.setItem('cityHistory', JSON.stringify(userInput.value));
+    console.log(cityWeather);
+})
+
+
+function cityHistory () {
+    const historyTab = document.querySelector('.history');
+    const btnWrapper = document.createElement('div'); // create a new wrapper element
+  
+    cityWeather.forEach(city => {
+      const btn = document.createElement('button');
+      btn.className = 'city-history';
+      btn.textContent = city;
+      btnWrapper.appendChild(btn); // append the button to the wrapper
+    });
+  
+    historyTab.innerHTML = ''; // clear the historyTab
+    historyTab.appendChild(btnWrapper); // append the wrapper to the historyTab
+  }
+ cityHistory();
 
 })
-})
+

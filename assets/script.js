@@ -85,40 +85,40 @@ const cityWeather = [];
 
 
 
-for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key[i];
-    const value = JSON.parse(localStorage.getItem('cityHistory', key));
-    cityWeather.push(value);
-}
-
-const userInput = document.querySelector('#userInput');
 btnSearch.addEventListener("click", function() {
-    for(let i = 0; i < forecastDisplay.length; i++) {
-    forecastDisplay[i].style.display = 'block'
+    for (let i = 0; i < forecastDisplay.length; i++) {
+        forecastDisplay[i].style.display = 'block';
     }
-    console.log('meow')
+
     console.log(userInput.value);
-    weatherForecast(userInput.value);
-    localStorage.setItem('cityHistory', JSON.stringify(userInput.value));
+    const latestCity = userInput.value;
+    cityWeather.push(latestCity); // add user's input to the cityWeather array
+    localStorage.setItem('cityHistory', JSON.stringify(cityWeather));
+    
     console.log(cityWeather);
-})
+
+    const uniqueCities = new Set(cityWeather);
+    const uniqueCityArray = Array.from(uniqueCities); // convert set back to array
+    cityHistory(uniqueCityArray);
+});
+
+
 
 
 function cityHistory () {
     const historyTab = document.querySelector('.history');
-    const btnWrapper = document.createElement('div'); // create a new wrapper element
-  
-    cityWeather.forEach(city => {
+    const btnWrapper = document.createElement('div');
+    const uniqueCities = new Set(cityWeather); 
+    uniqueCities.forEach(city => {
       const btn = document.createElement('button');
       btn.className = 'city-history';
       btn.textContent = city;
       btnWrapper.appendChild(btn); // append the button to the wrapper
     });
   
-    historyTab.innerHTML = ''; // clear the historyTab
-    historyTab.appendChild(btnWrapper); // append the wrapper to the historyTab
+    historyTab.innerHTML = '';
+    historyTab.appendChild(btnWrapper);
   }
- cityHistory();
-
+  
 })
 

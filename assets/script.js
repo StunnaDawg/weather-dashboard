@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 const key = '1b452da07c9aa9a60476c29a53bc96e0'
 
-
-
 function weatherForecast(city) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=` + key + '&cnt=5')  
     .then(function(resp) {
@@ -11,13 +9,6 @@ function weatherForecast(city) {
     })
     .then(function(data) {
         console.log('--->'+(JSON.stringify(data)));
-        
-        const tempData = data.list[0].main.temp;
-        const forcastDate = data.list[0].dt_txt;
-        const windData = data.list[0].wind.speed;
-        const  humidData = data.list[0].main.humidity;
-
-        console.log(tempData, forcastDate, windData, humidData);
         showWeatherData(data);
     })
     .catch(function() {
@@ -83,7 +74,7 @@ const btnSearch = document.querySelector('#search-btn');
 
 const cityWeather = [];
 
-
+const userInput = document.querySelector('#userInput');
 
 btnSearch.addEventListener("click", function() {
     for (let i = 0; i < forecastDisplay.length; i++) {
@@ -92,17 +83,17 @@ btnSearch.addEventListener("click", function() {
 
     console.log(userInput.value);
     const latestCity = userInput.value;
+    weatherForecast(userInput.value)
     cityWeather.push(latestCity); // add user's input to the cityWeather array
     localStorage.setItem('cityHistory', JSON.stringify(cityWeather));
     
     console.log(cityWeather);
 
-    const uniqueCities = new Set(cityWeather);
-    const uniqueCityArray = Array.from(uniqueCities); // convert set back to array
+const uniqueCities = new Set(cityWeather);
+    const uniqueCityArray = Array.from(uniqueCities);
+     // convert set back to array
     cityHistory(uniqueCityArray);
 });
-
-
 
 
 function cityHistory () {

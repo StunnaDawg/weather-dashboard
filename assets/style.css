@@ -1,0 +1,7 @@
+.forecast-container {
+    display: none;
+}
+
+.city-history {
+    display: block;
+}

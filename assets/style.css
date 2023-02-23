@@ -2,6 +2,10 @@
     display: none;
 }
 
+.current-weather {
+    display: none;
+}
+
 .city-history {
     display: block;
 }

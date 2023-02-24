@@ -110,7 +110,10 @@ const cityWeather = [];
 
 const userInput = document.querySelector('#userInput');
 
-btnSearch.addEventListener("click", function() {
+btnSearch.addEventListener("click", function() { 
+    if (cityWeather.includes(userInput.value)) {
+            return;
+        }
     for (let i = 0; i < forecastDisplay.length; i++) {
         forecastDisplay[i].style.display = 'block';
     }
@@ -128,15 +131,18 @@ btnSearch.addEventListener("click", function() {
 const uniqueCities = new Set(cityWeather);
     const uniqueCityArray = Array.from(uniqueCities);
      // convert set back to array
-    cityHistory(uniqueCityArray);
+    currentCityHistory(uniqueCityArray);
 });
 
 
-function cityHistory () {
     const historyTab = document.querySelector('.history');
     const btnWrapper = document.createElement('div');
+
+function currentCityHistory () {
+    
     const uniqueCities = new Set(cityWeather); 
     uniqueCities.forEach(city => {
+       
       const btn = document.createElement('button');
       btn.className = 'city-history';
       btn.textContent = city;
@@ -147,5 +153,13 @@ function cityHistory () {
     historyTab.appendChild(btnWrapper);
   }
   
-})
 
+  /* function getCityHistory () {
+    // take the city history and create the buttons when the page reloaded
+    const parsedCityHistory = JSON.parse(localStorage.getItem('cityHistory'));
+    console.log(parsedCityHistory);
+  }
+
+getCityHistory(); */
+
+})

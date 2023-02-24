@@ -154,12 +154,23 @@ function currentCityHistory () {
   }
   
 
-  /* function getCityHistory () {
+    function getCityHistory () {
     // take the city history and create the buttons when the page reloaded
     const parsedCityHistory = JSON.parse(localStorage.getItem('cityHistory'));
-    console.log(parsedCityHistory);
+    parsedCityHistory.forEach(city => {
+       
+        const btn = document.createElement('button');
+        btn.className = 'city-history';
+        btn.textContent = city;
+        btnWrapper.appendChild(btn); // append the button to the wrapper
+      });
+    
+      historyTab.innerHTML = '';
+      historyTab.appendChild(btnWrapper);
+    }
+    getCityHistory();
+
   }
 
-getCityHistory(); */
 
-})
+)

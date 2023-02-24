@@ -7,7 +7,7 @@ const key2 = 'c104444fef0ab36c01a47c59b6cd9d04'
 // current weather
 
 function currentWeather(city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=` + key2 + '&cnt=5')
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=` + key2 + '&units=metric')
     .then(function(resp) {
         return resp.json()
     })
@@ -35,7 +35,7 @@ function showCurrentWeatherData(data) {
 // 5 day forecast
 
 function weatherForecast(city) {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=` + key1 + '&cnt=5')  
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=40&appid=` + key1 + '&units=metric')  
     .then(function(resp) {
         return resp.json() 
     })
@@ -54,50 +54,50 @@ function showWeatherData(data) {
     const wind = document.querySelector('.wind');
     const humid = document.querySelector('.humid');
     
-    date.textContent = data.list[0].dt_txt;
-    temp.textContent = data.list[0].main.temp;
-    wind.textContent = data.list[0].wind.speed;
-    humid.textContent = data.list[0].main.humidity;
+    date.textContent = data.list[8].dt_txt;
+    temp.textContent = data.list[8].main.temp;
+    wind.textContent = data.list[8].wind.speed;
+    humid.textContent = data.list[8].main.humidity;
 
     const date2 = document.querySelector('.date1');
     const temp2 = document.querySelector('.temp1');
     const wind2 = document.querySelector('.wind1');
     const humid2 = document.querySelector('.humid1');
 
-    date2.textContent = data.list[1].dt_txt;
-    temp2.textContent = data.list[1].main.temp;
-    wind2.textContent = data.list[1].wind.speed;
-    humid2.textContent = data.list[1].main.humidity;
+    date2.textContent = data.list[16].dt_txt;
+    temp2.textContent = data.list[16].main.temp;
+    wind2.textContent = data.list[16].wind.speed;
+    humid2.textContent = data.list[16].main.humidity;
 
     const date3 = document.querySelector('.date2');
     const temp3 = document.querySelector('.temp2');
     const wind3 = document.querySelector('.wind2');
     const humid3 = document.querySelector('.humid2');
 
-    date3.textContent = data.list[2].dt_txt;
-    temp3.textContent = data.list[2].main.temp;
-    wind3.textContent = data.list[2].wind.speed;
-    humid3.textContent = data.list[2].main.humidity;
+    date3.textContent = data.list[24].dt_txt;
+    temp3.textContent = data.list[24].main.temp;
+    wind3.textContent = data.list[24].wind.speed;
+    humid3.textContent = data.list[24].main.humidity;
 
     const date4 = document.querySelector('.date3');
     const temp4 = document.querySelector('.temp3');
     const wind4 = document.querySelector('.wind3');
     const humid4 = document.querySelector('.humid3');
 
-    date4.textContent = data.list[3].dt_txt;
-    temp4.textContent = data.list[3].main.temp;
-    wind4.textContent = data.list[3].wind.speed;
-    humid4.textContent = data.list[3].main.humidity;
+    date4.textContent = data.list[32].dt_txt;
+    temp4.textContent = data.list[32].main.temp;
+    wind4.textContent = data.list[32].wind.speed;
+    humid4.textContent = data.list[32].main.humidity;
 
     const date5 = document.querySelector('.date4');
     const temp5 = document.querySelector('.temp4');
     const wind5 = document.querySelector('.wind4');
     const humid5 = document.querySelector('.humid4');
 
-    date5.textContent = data.list[4].dt_txt;
-    temp5.textContent = data.list[4].main.temp;
-    wind5.textContent = data.list[4].wind.speed;
-    humid5.textContent = data.list[4].main.humidity;
+    date5.textContent = data.list[33].dt_txt;
+    temp5.textContent = data.list[33].main.temp;
+    wind5.textContent = data.list[33].wind.speed;
+    humid5.textContent = data.list[33].main.humidity;
 }
 
 const forecastDisplay = document.querySelectorAll('.forecast-container') 

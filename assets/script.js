@@ -7,6 +7,8 @@ const key2 = 'c104444fef0ab36c01a47c59b6cd9d04'
 const cityName = document.querySelector('#city-name');
 // current weather
 
+const weatherIcons = document.querySelector('#current-weather-icon')
+
 function currentWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=` + key2 + '&units=metric')
     .then(function(resp) {
@@ -16,6 +18,7 @@ function currentWeather(city) {
         console.log('--->'+(JSON.stringify(data)));
         showCurrentWeatherData(data)
         cityName.textContent = city
+        document.getElementById("current-weather-icon").setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     })
     
     .catch(function(error) {
@@ -36,9 +39,9 @@ function showCurrentWeatherData(data) {
     const currentHumid = document.querySelector('.current-humid');
     
 
-    currentDate.textContent = 'Todays weather:';
+    currentDate.textContent = 'Current weather:';
    
-    currentWeather.textContent = data.main.temp;
+    currentWeather.textContent = data.main.temp + ' degrees celsius';
     currentWind.textContent = data.wind.speed;
     currentHumid.textContent = data.main.humidity;
     
@@ -54,6 +57,11 @@ function weatherForecast(city) {
         console.log('--->'+(JSON.stringify(data)));
         showWeatherData(data); 
         cityName.textContent = city
+        document.getElementById("day1-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[8].weather[0].icon + "@2x.png")
+        document.getElementById("day2-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[16].weather[0].icon + "@2x.png")
+        document.getElementById("day3-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[24].weather[0].icon + "@2x.png")
+        document.getElementById("day4-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[32].weather[0].icon + "@2x.png")
+        document.getElementById("day5-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[39].weather[0].icon + "@2x.png")
     })
     .catch(function() {
         // catches errors
@@ -74,9 +82,8 @@ function showWeatherData(data) {
     let d1 = new Date(data.list[8].dt * 1000);
     let dayName1 = days[d1.getDay()];
   
-    
     date.textContent = dayName1;
-    temp.textContent = data.list[8].main.temp;
+    temp.textContent = data.list[8].main.temp + ' degrees celsius';
     wind.textContent = data.list[8].wind.speed;
     humid.textContent = data.list[8].main.humidity;
 
@@ -89,7 +96,7 @@ function showWeatherData(data) {
     let dayName2 = days[d2.getDay()];
 
     date2.textContent = dayName2;
-    temp2.textContent = data.list[16].main.temp;
+    temp2.textContent = data.list[16].main.temp + ' degrees celsius';
     wind2.textContent = data.list[16].wind.speed;
     humid2.textContent = data.list[16].main.humidity;
 
@@ -102,7 +109,7 @@ function showWeatherData(data) {
     let dayName3 = days[d3.getDay()];
 
     date3.textContent = dayName3;
-    temp3.textContent = data.list[24].main.temp;
+    temp3.textContent = data.list[24].main.temp + ' degrees celsius';
     wind3.textContent = data.list[24].wind.speed;
     humid3.textContent = data.list[24].main.humidity;
 
@@ -115,7 +122,7 @@ function showWeatherData(data) {
     let dayName4 = days[d4.getDay()];
 
     date4.textContent = dayName4;
-    temp4.textContent = data.list[32].main.temp;
+    temp4.textContent = data.list[32].main.temp + ' degrees celsius';
     wind4.textContent = data.list[32].wind.speed;
     humid4.textContent = data.list[32].main.humidity;
 
@@ -128,7 +135,7 @@ function showWeatherData(data) {
     let dayName5 = days[d5.getDay()];
 
     date5.textContent = dayName5;
-    temp5.textContent = data.list[39].main.temp;
+    temp5.textContent = data.list[39].main.temp + ' degrees celsius';
     wind5.textContent = data.list[39].wind.speed;
     humid5.textContent = data.list[39].main.humidity;
 }
@@ -146,18 +153,23 @@ const userInput = document.querySelector('#userInput');
 btnSearch.addEventListener("click", function() { 
     if (cityWeather.includes(userInput.value)) {
         for (let i = 0; i < forecastDisplay.length; i++) {
-            forecastDisplay[i].style.display = 'block';
+            forecastDisplay[i].style.display = 'flex';
         }
-        currentWeatherDisplay.style.display = 'block';
+        currentWeatherDisplay.style.display = 'flex';
         currentWeather(userInput.value);
         weatherForecast(userInput.value);
         return;
+    }  
+    if (userInput.value === '') {
+        return;
     }
     for (let i = 0; i < forecastDisplay.length; i++) {
-        forecastDisplay[i].style.display = 'block';
+        forecastDisplay[i].style.display = 'flex';
     }
 
-    currentWeatherDisplay.style.display = 'block';
+  
+
+    currentWeatherDisplay.style.display = 'flex';
     console.log(userInput.value);
     const latestCity = userInput.value;
     const formattedCity = latestCity.charAt(0).toUpperCase() + latestCity.slice(1).toLowerCase();
@@ -188,10 +200,10 @@ function currentCityHistory (cities) {
 
         btn.addEventListener('click', () => {
             for (let i = 0; i < forecastDisplay.length; i++) {
-                forecastDisplay[i].style.display = 'block';
+                forecastDisplay[i].style.display = 'flex';
             }
         
-            currentWeatherDisplay.style.display = 'block';
+            currentWeatherDisplay.style.display = 'flex';
             
             currentWeather(city);
             weatherForecast(city);

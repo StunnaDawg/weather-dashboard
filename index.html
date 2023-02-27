@@ -11,11 +11,12 @@
 
 <header>
     <h1>Weather Forecast</h1>
+    <h2 id="city-name"></h2>
 </header>
 
 <main>
     <section>
-        <input type="text" autocomplete="on" id="userInput">
+        <input type="text" autocomplete="on" id="userInput" placeholder="Search for a City!">
         <button type="button" id="search-btn">Search</button>
     </section> 
     
@@ -24,7 +25,8 @@
     </section>
 
     <section class="current-weather">
-        <h2 ><span class="current-date"> </span></h2>
+        <h2 ><span class="current-date"></span></h2>
+        <img id="current-weather-icon">
         <h3 >Temp:<span class="current-temp"></span></h3>
         <h3 >Wind:<span class="current-wind"></span></h3>
         <h3 >Humidity:<span class="current-humid"></span></h3>
@@ -32,6 +34,7 @@
 
    <section class="forecast-container">
         <h2 ><span class="date"></span></h2>
+        <img class="day1-img">
         <h3 >Temp:<span class="temp"></span></h3>
         <h3 >Wind:<span class="wind"></span></h3>
         <h3 >Humidity:<span class="humid"></span></h3>

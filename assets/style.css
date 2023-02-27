@@ -1,18 +1,74 @@
+body {
+    display: flex;
+    background-color: lightblue;
+}
+
+header {
+    display: inline-block;
+    width: 30%; /* adjust the width as needed */
+    vertical-align: top;
+  }
+
+main {
+    display: inline-block;
+    width: 70%; /* adjust the width as needed */
+    vertical-align: top;
+    margin-top: 100px;
+  }
+  
+
 .forecast-container {
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
 .current-weather {
     display: none;
-    flex-direction: row;
-    justify-content: center;
 }
 
 .city-history {
     display: block;
+}
+
+.history button {
+    margin: 10px;
+
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    display: block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+}
+
+#search-btn {
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#userInput {
+    font: inherit;
+  padding: 0.2em 0.5em;
 }
 
 span {

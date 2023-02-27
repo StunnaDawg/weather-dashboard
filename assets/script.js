@@ -15,7 +15,7 @@ function currentWeather(city) {
     .then(function(data) {
         console.log('--->'+(JSON.stringify(data)));
         showCurrentWeatherData(data)
-        cityName.textContent = city;
+        cityName.textContent = city
     })
     
     .catch(function(error) {
@@ -36,7 +36,7 @@ function showCurrentWeatherData(data) {
     const currentHumid = document.querySelector('.current-humid');
     
 
-    currentDate.textContent = 'Todays weather';
+    currentDate.textContent = 'Todays weather:';
    
     currentWeather.textContent = data.main.temp;
     currentWind.textContent = data.wind.speed;
@@ -53,7 +53,7 @@ function weatherForecast(city) {
     .then(function(data) {
         console.log('--->'+(JSON.stringify(data)));
         showWeatherData(data); 
-        cityName.textContent = city;
+        cityName.textContent = city
     })
     .catch(function() {
         // catches errors

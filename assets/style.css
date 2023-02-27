@@ -1,11 +1,21 @@
 .forecast-container {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .current-weather {
     display: none;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .city-history {
     display: block;
+}
+
+span {
+    margin-left: 10px;
+    margin-right: 10px;
 }

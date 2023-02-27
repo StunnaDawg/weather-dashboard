@@ -20,13 +20,18 @@ function currentWeather(city) {
     })
 }
 
-function showCurrentWeatherData(data) {
+function showCurrentWeatherData(data) { 
+    
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let d = new Date(data.dt * 1000);
+    let dayName = days[d.getDay()];
+
     const currentDate = document.querySelector('.current-date')
     const currentWeather = document.querySelector('.current-temp')
     const currentWind = document.querySelector('.current-wind')
     const currentHumid = document.querySelector('.current-humid')
 
-    currentDate.textContent = data.dt_txt;
+    currentDate.textContent = dayName;
     currentWeather.textContent = data.main.temp;
     currentWind.textContent = data.wind.speed;
     currentHumid.textContent = data.main.humidity;
@@ -53,8 +58,13 @@ function showWeatherData(data) {
     const temp = document.querySelector('.temp');
     const wind = document.querySelector('.wind');
     const humid = document.querySelector('.humid');
+
+    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    let d1 = new Date(data.list[8].dt * 1000);
+    let dayName1 = days[d1.getDay()];
+  
     
-    date.textContent = data.list[8].dt_txt;
+    date.textContent = dayName1;
     temp.textContent = data.list[8].main.temp;
     wind.textContent = data.list[8].wind.speed;
     humid.textContent = data.list[8].main.humidity;
@@ -64,7 +74,10 @@ function showWeatherData(data) {
     const wind2 = document.querySelector('.wind1');
     const humid2 = document.querySelector('.humid1');
 
-    date2.textContent = data.list[16].dt_txt;
+    let d2 = new Date(data.list[16].dt * 1000);
+    let dayName2 = days[d2.getDay()];
+
+    date2.textContent = dayName2;
     temp2.textContent = data.list[16].main.temp;
     wind2.textContent = data.list[16].wind.speed;
     humid2.textContent = data.list[16].main.humidity;
@@ -74,7 +87,10 @@ function showWeatherData(data) {
     const wind3 = document.querySelector('.wind2');
     const humid3 = document.querySelector('.humid2');
 
-    date3.textContent = data.list[24].dt_txt;
+    let d3 = new Date(data.list[24].dt * 1000);
+    let dayName3 = days[d3.getDay()];
+
+    date3.textContent = dayName3;
     temp3.textContent = data.list[24].main.temp;
     wind3.textContent = data.list[24].wind.speed;
     humid3.textContent = data.list[24].main.humidity;
@@ -84,7 +100,10 @@ function showWeatherData(data) {
     const wind4 = document.querySelector('.wind3');
     const humid4 = document.querySelector('.humid3');
 
-    date4.textContent = data.list[32].dt_txt;
+    let d4 = new Date(data.list[32].dt * 1000);
+    let dayName4 = days[d4.getDay()];
+
+    date4.textContent = dayName4;
     temp4.textContent = data.list[32].main.temp;
     wind4.textContent = data.list[32].wind.speed;
     humid4.textContent = data.list[32].main.humidity;
@@ -94,10 +113,13 @@ function showWeatherData(data) {
     const wind5 = document.querySelector('.wind4');
     const humid5 = document.querySelector('.humid4');
 
-    date5.textContent = data.list[33].dt_txt;
-    temp5.textContent = data.list[33].main.temp;
-    wind5.textContent = data.list[33].wind.speed;
-    humid5.textContent = data.list[33].main.humidity;
+    let d5 = new Date(data.list[39].dt * 1000);
+    let dayName5 = days[d5.getDay()];
+
+    date5.textContent = dayName5;
+    temp5.textContent = data.list[39].main.temp;
+    wind5.textContent = data.list[39].wind.speed;
+    humid5.textContent = data.list[39].main.humidity;
 }
 
 const forecastDisplay = document.querySelectorAll('.forecast-container') 
@@ -115,10 +137,10 @@ btnSearch.addEventListener("click", function() {
             return;
         }
     for (let i = 0; i < forecastDisplay.length; i++) {
-        forecastDisplay[i].style.display = 'block';
+        forecastDisplay[i].style.display = 'flex';
     }
 
-    currentWeatherDisplay.style.display = 'block';
+    currentWeatherDisplay.style.display = 'flex';
     console.log(userInput.value);
     const latestCity = userInput.value;
     currentWeather(userInput.value);
@@ -127,11 +149,10 @@ btnSearch.addEventListener("click", function() {
     localStorage.setItem('cityHistory', JSON.stringify(cityWeather));
     
     console.log(cityWeather);
-
-const uniqueCities = new Set(cityWeather);
+    const uniqueCities = new Set(cityWeather);
     const uniqueCityArray = Array.from(uniqueCities);
      // convert set back to array
-    currentCityHistory(uniqueCityArray);
+    currentCityHistory(uniqueCityArray);  
 });
 
 
@@ -152,7 +173,7 @@ function currentCityHistory () {
     historyTab.innerHTML = '';
     historyTab.appendChild(btnWrapper);
   }
-  
+currentCityHistory  
 
     function getCityHistory () {
     // take the city history and create the buttons when the page reloaded

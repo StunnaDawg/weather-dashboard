@@ -145,13 +145,19 @@ const userInput = document.querySelector('#userInput');
 
 btnSearch.addEventListener("click", function() { 
     if (cityWeather.includes(userInput.value)) {
+        for (let i = 0; i < forecastDisplay.length; i++) {
+            forecastDisplay[i].style.display = 'block';
+        }
+        currentWeatherDisplay.style.display = 'block';
+        currentWeather(userInput.value);
+        weatherForecast(userInput.value);
         return;
     }
     for (let i = 0; i < forecastDisplay.length; i++) {
-        forecastDisplay[i].style.display = 'flex';
+        forecastDisplay[i].style.display = 'block';
     }
 
-    currentWeatherDisplay.style.display = 'flex';
+    currentWeatherDisplay.style.display = 'block';
     console.log(userInput.value);
     const latestCity = userInput.value;
     const formattedCity = latestCity.charAt(0).toUpperCase() + latestCity.slice(1).toLowerCase();
@@ -182,10 +188,10 @@ function currentCityHistory (cities) {
 
         btn.addEventListener('click', () => {
             for (let i = 0; i < forecastDisplay.length; i++) {
-                forecastDisplay[i].style.display = 'flex';
+                forecastDisplay[i].style.display = 'block';
             }
         
-            currentWeatherDisplay.style.display = 'flex';
+            currentWeatherDisplay.style.display = 'block';
             
             currentWeather(city);
             weatherForecast(city);

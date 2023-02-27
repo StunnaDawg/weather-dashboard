@@ -23,6 +23,7 @@ main {
 
 .current-weather {
     display: none;
+    font-size: 25px;
 }
 
 .city-history {

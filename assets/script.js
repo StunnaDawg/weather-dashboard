@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function(){ 
+//function ensures the html DOM is loaded before the code is executed
 
 const key1 = '1b452da07c9aa9a60476c29a53bc96e0'
 
@@ -7,25 +8,40 @@ const key2 = 'c104444fef0ab36c01a47c59b6cd9d04'
 const cityName = document.querySelector('#city-name');
 // current weather
 
-const weatherIcons = document.querySelector('#current-weather-icon')
+const newUser = document.querySelector('#select-weather'); 
+
+//If the user has nothing stored in local storage then 'Search for a City' appears
+
+if (localStorage.getItem('cityHistory') === null) { 
+    newUser.textContent = 'Search for a City!';
+  }
+
+//current weather fetches the currentWeather api call and makes sure the data is in metric units
 
 function currentWeather(city) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=` + key2 + '&units=metric')
     .then(function(resp) {
-        return resp.json()
-    })
+        if (resp.status === 404) {
+            throw new Error('Data not found');
+          }
+          return resp.json();
+
+})
     .then(function(data) {
         console.log('--->'+(JSON.stringify(data)));
         showCurrentWeatherData(data)
         cityName.textContent = city
         document.getElementById("current-weather-icon").setAttribute("src", "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
+        localStorage.setItem('lastCity', city);
     })
     
-    .catch(function(error) {
-        console.log(error)
+    .catch(function(err)  {
+        console.log(err);
     })
     
 }
+
+//This function displays the current weather
 
 function showCurrentWeatherData(data) { 
     
@@ -46,12 +62,16 @@ function showCurrentWeatherData(data) {
     currentHumid.textContent = data.main.humidity;
     
 }
-// 5 day forecast
+// This api fetch, fetches the 5 day forecast and once again transforms the units to metric 
+//the icons are also fetched
 
 function weatherForecast(city) {
     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=40&appid=` + key1 + '&units=metric')  
     .then(function(resp) {
-        return resp.json() 
+        if (resp.status === 404) {
+            throw new Error('Data not found');
+          }
+          return resp.json();
     })
     .then(function(data) {
         console.log('--->'+(JSON.stringify(data)));
@@ -62,15 +82,16 @@ function weatherForecast(city) {
         document.getElementById("day3-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[24].weather[0].icon + "@2x.png")
         document.getElementById("day4-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[32].weather[0].icon + "@2x.png")
         document.getElementById("day5-img").setAttribute("src", "http://openweathermap.org/img/wn/" + data.list[39].weather[0].icon + "@2x.png")
+        localStorage.setItem('lastCity', city);
     })
-    .catch(function() {
-        // catches errors
+    .catch(function(err)  {
+        console.log(err);
     });
    
 }
 
 
-
+//showWeatherData takes the data from the apis and displays them for every day
 
 function showWeatherData(data) {
     const date = document.querySelector('.date');
@@ -140,6 +161,9 @@ function showWeatherData(data) {
     humid5.textContent = data.list[39].main.humidity;
 }
 
+
+
+
 const forecastDisplay = document.querySelectorAll('.forecast-container') 
 
 const currentWeatherDisplay = document.querySelector('.current-weather')
@@ -149,6 +173,11 @@ const btnSearch = document.querySelector('#search-btn');
 let cityWeather = JSON.parse(localStorage.getItem('cityHistory')) || [];
 
 const userInput = document.querySelector('#userInput');
+
+//The search button checks multiple possible errors
+//It first checks to see if the user input has already been stored. If it has it just diplays the data
+//Also if the data entry is empty then it does not call
+//If the user passes the input then the new input is added to the local storage
 
 btnSearch.addEventListener("click", function() { 
     if (cityWeather.includes(userInput.value)) {
@@ -189,8 +218,12 @@ btnSearch.addEventListener("click", function() {
 const historyTab = document.querySelector('.history');
 const btnWrapper = document.createElement('div');
 
+//the currentCity History takes the current cities and creates only 1 button for each
+//there should never be any duplicates
+
 function currentCityHistory (cities) {
     btnWrapper.innerHTML = '';
+
 
     cities.forEach(city => {
         const btn = document.createElement('button');
@@ -214,15 +247,31 @@ function currentCityHistory (cities) {
     historyTab.appendChild(btnWrapper);
 }
 currentCityHistory(cityWeather);
+  
+
+//getCityHistory looks at local storage and creates the buttons
 
 function getCityHistory () {
-    // take the city history and create the buttons when the page reloaded
     const parsedCityHistory = JSON.parse(localStorage.getItem('cityHistory')) || [];
     cityWeather = parsedCityHistory;
     currentCityHistory(parsedCityHistory);
 }
 
 getCityHistory();
+
+// the last city displays the last city searched when the page is reloaded
+
+let lastCity = localStorage.getItem('lastCity');
+if (lastCity) {
+    for (let i = 0; i < forecastDisplay.length; i++) {
+        forecastDisplay[i].style.display = 'flex';
+    }
+
+    currentWeatherDisplay.style.display = 'flex';
+  // If lastCity is found in localStorage, display its weather data
+  currentWeather(lastCity);
+  weatherForecast(lastCity);
+}
   } )
 
 

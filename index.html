@@ -11,19 +11,25 @@
 
 <header>
     <h1>Weather Forecast</h1>
+    <!--city name is where the current cities name is displayed-->
     <h2 id="city-name"></h2>
     <section>
         <input type="text" autocomplete="on" id="userInput" placeholder="New York">
         <button type="button" id="search-btn">Search</button>
     </section> 
-    <section class="history">
+    <!--History section is where the buttons are dynamically created-->
+    <section class="history"> 
 
     </section>
 </header>
 
+<!--The main section is where all the api data is displayed depending on the users choice-->
+
 <main>
     
-    
+    <section class="new-user">
+        <h2 id="select-weather"></h2>
+    </section>
     
 
     <section class="current-weather">

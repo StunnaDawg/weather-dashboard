@@ -9,7 +9,7 @@ In future development I plan on fixing the "button bug" where when a user inputs
 ## Instructions 
 You will need a browser installed on your local machine to run this application. Follow these steps:
 
-1. Clone the reopsitory with the following command: ‘git clone https://github.com/StunnaDawg/work-day-scheduler
+1. Clone the reopsitory with the following command: ‘git clone https://github.com/StunnaDawg/weather-dashboard
 
 2. CD into the repository on your local machine
 
